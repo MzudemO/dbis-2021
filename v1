@@ -1,0 +1,120 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
+
+// Persistance Manager Logging
+ 
+public class LogPersist {
+  private static LogPersist operation;
+  private LogPersist (){}
+  public static LogPersist getOperation(){
+   if (operation==null) {
+   operation = new LogPersist();
+   }
+ return operation;
+ }
+ 
+ // define log
+ public Log log(){
+	 return new Log();
+ }
+ 
+ 
+ 
+// define Format to save log
+
+ public void log(Format format,String... msg){
+	 String chars = format.logsFormat();
+	 for (String string : msg) {
+		 chars = chars.replaceFirst("?", string);
+	 }
+	 tofiles(format.gainPath(), chars);
+ }
+
+ 
+ // save log in txt.
+ public final class Log{
+   public void txt(Path path,String... msg){
+   String chars = "";
+   for (String string : msg) {
+	   chars = chars + string;
+   	}
+   tofiles(path.gainPath(), chars);
+   }
+ }
+ 
+ 
+ // log save Path
+ 
+ public interface Path{
+	 String gainPath();
+ }
+ 
+ 
+ 
+ // default save path and fileName 
+ 
+ public String path(String fileName){
+	 return "C://logs/"+fileName+".txt";
+ }
+ 
+ // Thread-Safe Singleton
+
+ class Singleton {
+	 static final private Singleton singleton;
+	 	static {
+	 		try {
+	 			singleton = new Singleton();
+	 			}
+	 catch (Throwable e) {
+		 throw new RuntimeException(e.getMessage());
+	 	}
+	 }
+	 private Singleton() {}
+	 static public Singleton getInstance() {
+	 return singleton;
+	 }
+ }
+ 
+ 
+ 
+ // Creating Threads
+ 
+ public class HelloThread extends Thread {
+	 String name;
+	 public HelloThread(String name){
+	 this.name = name;
+	 }
+	 public void run() {
+		 while(true){
+			 System.out.println("Hello from " + name);
+			 try{
+				 Thread.sleep(2000);
+			 }
+	  catch(InterruptedException e){
+	  return;
+	 }
+   }
+  }
+}
+ 
+ public class ThreadCreator {
+	 public static void main(String[] args) {
+	 Thread t1 = new HelloThread("Thread1");
+	 Thread t2 = new HelloThread("Thread2"); 
+	 
+	 t1.start();
+	 t2.start();
+	 
+	 try {
+	 Thread.sleep(10000);
+	 } catch (InterruptedException e) {
+	 }
+	 
+	 t1.interrupt();
+	 t2.interrupt();
+	 }
+}
