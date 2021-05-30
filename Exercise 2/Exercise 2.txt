@@ -1,0 +1,13 @@
+DIS 2021 Assignment 2
+
+Moritz Lahann
+
+Unfortunately, I was not able to complete the assignment fully due to time constraints. Thus, the java implementation is incomplete. I apologize for the inconvenience.
+
+1. Creating and updating an Agent is possible.
+
+2. A contract with a non-existing estate can be created, as it is only a foreign key and not explicitly declared non-null.
+
+3. One table per concrete class, as that simplifies the structure and overlap between classes is not that large.
+
+4. Thus, this problem cannot occur - an estate is always either an apartment or a house. With a different inheritance model, depending on the SQL statement it could either be one transaction = nothing is added, or individual ones (only estate is added).
