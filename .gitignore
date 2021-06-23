@@ -1,0 +1,5 @@
+__pycache__/
+
+# large data files we don't want to commit
+movies.json
+tweets.json
