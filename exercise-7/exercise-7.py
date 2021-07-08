@@ -160,7 +160,9 @@ if __name__ == "__main__":
     """
     data_set = data_set_from_txt()
     L, support_data = generate_L(data_set, k=26, min_support=0.01)
-    for Lk in L[:-1]:
+    for Lk in L:
+        if len(list(Lk)) == 0:
+            break
         print("=" * 50)
         print("frequent " + str(len(list(Lk)[0])) + "-itemsets\t\tsupport")
         print("=" * 50)
